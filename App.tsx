@@ -12,6 +12,7 @@ import {
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
 import Dahboard from './src/Screens/Dashboard';
+import RootNavigation from './src/Navigation/RootNavigation';
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
@@ -19,7 +20,7 @@ function App() {
   return (
     <SafeAreaProvider style={{paddingTop: StatusBar.currentHeight}}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <Dahboard />
+      <RootNavigation />
     </SafeAreaProvider>
   );
 }
