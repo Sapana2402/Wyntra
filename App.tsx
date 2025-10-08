@@ -13,15 +13,18 @@ import {
 } from 'react-native-safe-area-context';
 import Dahboard from './src/Screens/Dashboard';
 import RootNavigation from './src/Navigation/RootNavigation';
-
+import { Provider } from 'react-redux';
+import store from './src/Store/Store'
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
 
   return (
+    <Provider store={store}>
     <SafeAreaProvider style={{paddingTop: StatusBar.currentHeight}}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
       <RootNavigation />
     </SafeAreaProvider>
+    </Provider>
   );
 }
 
