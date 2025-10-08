@@ -1,10 +1,10 @@
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { Colors } from '../Assets/Color';
 
-const Product = ({ item }: any) => {
+const Product = ({ item, onPress}: any) => {
   return (
-    <View style={styles.allProductMainContainer}>
+    <Pressable style={styles.allProductMainContainer} onPress={onPress}>
       <Image source={{ uri: item.images[0] }} style={styles.productImage} />
       <View style={styles.subViewContainer}>
         <Text style={styles.title}>{item.title}</Text>
@@ -19,7 +19,7 @@ const Product = ({ item }: any) => {
           </View>
         </View>
       </View>
-    </View>
+    </Pressable>
   );
 };
 

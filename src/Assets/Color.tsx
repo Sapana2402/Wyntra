@@ -5,6 +5,7 @@ export const Colors = {
         lightGray: '#FBFBFB',
         yellow: '#FBAD46',
         green: '#009947',
-        pink: '#EE5F73'
+        pink: '#EE5F73',
+        darkGray: '#595959',
     }
 }

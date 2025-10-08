@@ -6,7 +6,13 @@
  */
 
 import { NewAppScreen } from '@react-native/new-app-screen';
-import { StatusBar, StyleSheet, Text, useColorScheme, View } from 'react-native';
+import {
+  StatusBar,
+  StyleSheet,
+  Text,
+  useColorScheme,
+  View,
+} from 'react-native';
 import {
   SafeAreaProvider,
   useSafeAreaInsets,
@@ -14,16 +20,19 @@ import {
 import Dahboard from './src/Screens/Dashboard';
 import RootNavigation from './src/Navigation/RootNavigation';
 import { Provider } from 'react-redux';
-import store from './src/Store/Store'
+import { store, persistor } from './src/Store/Store';
+import { PersistGate } from 'redux-persist/integration/react';
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
 
   return (
     <Provider store={store}>
-    <SafeAreaProvider style={{paddingTop: StatusBar.currentHeight}}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <RootNavigation />
-    </SafeAreaProvider>
+      <PersistGate loading={null}  persistor={persistor}>
+      <SafeAreaProvider style={{ paddingTop: StatusBar.currentHeight }}>
+        <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+        <RootNavigation />
+      </SafeAreaProvider>
+      </PersistGate>
     </Provider>
   );
 }

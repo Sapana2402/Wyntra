@@ -22,7 +22,7 @@ interface Categories {
   url: String;
 }
 
-const Dashboard = () => {
+const Dashboard = ({ navigation }) => {
   const [categories, setCategories] = useState([]);
   const [allProducts, setAllProducts] = useState([]);
   useEffect(() => {
@@ -53,8 +53,8 @@ const Dashboard = () => {
   };
 
   const getProductDetails = () => {
-    const res  = axios.post('')
-  }
+    const res = axios.post('');
+  };
 
   const fetchAllProducts = async () => {
     const res = await axios.get('https://dummyjson.com/products');
@@ -132,9 +132,15 @@ const Dashboard = () => {
             numColumns={2}
             style={styles.subConatinerView}
             showsHorizontalScrollIndicator={false}
-            // data={allProducts}
             data={allProducts.slice(0, 20)}
-             renderItem={({ item }) => <Product item={item} />}
+            renderItem={({ item }) => (
+              <Product
+                item={item}
+                onPress={() => {
+                  navigation.navigate('ProductDetails', { itemId: item.id });
+                }}
+              />
+            )}
           />
         </View>
       </ScrollView>

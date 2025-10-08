@@ -23,8 +23,6 @@ export const loginUser = createAsyncThunk(
     { rejectWithValue },
   ) => {
     try {
-        console.log("insede here");
-        
       const res = await axios.post(API_URL, {
         username,
         password,
@@ -32,7 +30,7 @@ export const loginUser = createAsyncThunk(
       const data = res.data;
       console.log('data===', data);
 
-      await Keychain.setGenericPassword('auth', data.accessToken);
+      return res.data
     } catch (error: any) {
       return rejectWithValue(error.message);
     }
@@ -42,7 +40,14 @@ export const loginUser = createAsyncThunk(
 const authSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {},
+  reducers: {
+    logout: (state) => {
+      state.token = null,
+      state.user = null,
+      state.loading = false,
+      state.error = null
+    }
+  },
   extraReducers: builder => {
     builder
       .addCase(loginUser.pending, state => {
@@ -51,7 +56,7 @@ const authSlice = createSlice({
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.loading = false;
-        state.token = action.payload.token;
+        state.token = action.payload.accessToken;
         state.user = action.payload;
       })
       .addCase(loginUser.rejected, (state, action) => {
@@ -61,4 +66,5 @@ const authSlice = createSlice({
   },
 });
 
+export const { logout } = authSlice.actions
 export default authSlice.reducer;
