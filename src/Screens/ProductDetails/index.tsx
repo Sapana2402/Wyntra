@@ -10,10 +10,13 @@ import {
   View,
 } from 'react-native';
 import { Colors } from '../../Assets/Color';
+import { addToCart } from '../../Store/slices/CratSlice';
+import { useDispatch } from 'react-redux';
 
 const ProductDetails = ({ navigation, route }) => {
   const { itemId } = route.params;
   const [details, setDetails] = useState();
+  const dispatch = useDispatch()
   useEffect(() => {
     fetchProductDetails();
   }, []);
@@ -53,7 +56,7 @@ const ProductDetails = ({ navigation, route }) => {
       </View>
 
       <View style={styles.btnContainer}>
-        <Pressable style={styles.addToCart}>
+        <Pressable style={styles.addToCart} onPress={()=> dispatch(addToCart(details))}>
           <Text style={styles.text}>Add To Cart</Text>
         </Pressable>
         <Pressable style={styles.buyNow}>

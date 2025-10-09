@@ -1,6 +1,5 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { View } from 'react-native';
 import Dashboard from '../Screens/Dashboard';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Profile from '../Screens/Profile';
@@ -11,13 +10,21 @@ import { useSelector } from 'react-redux';
 import MaterialDesignIcons from 'react-native-vector-icons/MaterialDesignIcons';
 import { Colors } from '../Assets/Color';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import { useEffect } from 'react';
 
 const RootNavigation = () => {
   const Stack = createStackNavigator();
   const BottomTab = createBottomTabNavigator();
-  const { token } = useSelector(state => state.auth);
+  const { token, user } = useSelector(state => state.auth);
+  // const { items } = useSelector(state => state.carts);
+  // const items = useSelector(state => state.carts?.items);
+
+  useEffect(() => {
+    console.log('abababababab', user.id);
+  });
 
   const BottomTabNavigator = () => {
+    const items = useSelector(state => state.carts?.items);
     return (
       <BottomTab.Navigator
         screenOptions={({ route }) => ({
@@ -38,7 +45,9 @@ const RootNavigation = () => {
         })}
       >
         <BottomTab.Screen component={Dashboard} name="Dashboard" />
-        <BottomTab.Screen component={Cart} name="Cart" />
+        <BottomTab.Screen component={Cart} name="Cart" options={{tabBarBadge
+          :items?.length || 0
+        }}/>
         <BottomTab.Screen component={Profile} name="Profile" />
       </BottomTab.Navigator>
     );
